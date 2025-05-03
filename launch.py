@@ -152,18 +152,11 @@ config.default_base_model_name, config.checkpoint_downloads = download_models(
 
 config.update_files()
 init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenames, config.paths_loras)
-url = "https://github.com/facefusion/facefusion-assets/releases/download/models/inswapper_128.onnx"
-download_path = config.path_clip_vision  # Windows
-# Или для Linux/Mac: "/home/user/Downloads/image.png"
 
-response = requests.get(url)
-if response.status_code == 200:
-    with open(download_path, "wb") as f:
-        f.write(response.content)
-    print(f"Файл сохранён в: {download_path}")
-else:
-    print("Ошибка загрузки:", response.status_code)
-
+load_file_from_url(
+    url='https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/inswapper_128.onnx', 
+    model_dir=config.path_clip_vision, 
+    file_name='inswapper_128.onnx')
 
 if not os.path.exists('batch_images'):
     os.mkdir('batch_images')
