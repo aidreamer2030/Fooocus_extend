@@ -227,7 +227,10 @@ class AsyncTask:
         self.positive_batch = args.pop()
         self.negative_batch = args.pop()
         self.name_prefix = args.pop().strip().replace(" ", "_")
-        
+        self.inswapper_enabled = args.pop()
+        self.inswapper_source_image_indicies = args.pop()
+        self.inswapper_target_image_indicies = args.pop()
+        self.inswapper_source_image = args.pop()
 
 async_tasks = []
 
