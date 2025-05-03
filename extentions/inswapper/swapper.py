@@ -7,7 +7,7 @@ It is highly built on the top of insightface, sd-webui-roop and CodeFormer.
 import os
 import cv2
 import copy
-import argparse
+###import argparse
 import insightface
 import onnxruntime
 import numpy as np
@@ -198,7 +198,7 @@ def process(source_img: Union[Image.Image, List],
     result_image = Image.fromarray(cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
     return result_image
 
-
+"""
 def parse_args():
     parser = argparse.ArgumentParser(description="Face swap.")
     parser.add_argument("--source_img", type=str, required=True, help="The path of source image, it can be multiple images, dir;dir2;dir3.")
@@ -213,7 +213,7 @@ def parse_args():
     parser.add_argument("--codeformer_fidelity", type=float, default=0.5, help="The codeformer fidelity.")
     args = parser.parse_args()
     return args
-
+"""
 
 if __name__ == "__main__":
     
