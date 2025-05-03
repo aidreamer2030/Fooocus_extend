@@ -1,9 +1,10 @@
 import sys
 from PIL import Image
 import numpy as np
-sys.path.append('../inswapper')
+#sys.path.append('../inswapper')
 
-from inswapper.swapper import process
+#from inswapper.swapper import process
+from swapper import process
 
 def perform_face_swap(images, inswapper_source_image, inswapper_source_image_indicies, inswapper_target_image_indicies):
   swapped_images = []
@@ -15,7 +16,7 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
       result_image = process([source_image], item, inswapper_source_image_indicies, inswapper_target_image_indicies, "../inswapper/checkpoints/inswapper_128.onnx")
 
   if True:
-      from inswapper.restoration import face_restoration,check_ckpts,set_realesrgan,torch,ARCH_REGISTRY,cv2
+      from restoration import face_restoration,check_ckpts,set_realesrgan,torch,ARCH_REGISTRY,cv2
       
       # make sure the ckpts downloaded successfully
       check_ckpts()
