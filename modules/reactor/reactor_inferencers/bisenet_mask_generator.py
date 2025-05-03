@@ -1,13 +1,18 @@
 from typing import List, Tuple
 
 import cv2
+import os
+import sys
 # import modules.shared as shared
 import numpy as np
 import torch
-from facexlib.parsing import init_parsing_model
-from facexlib.utils.misc import img2tensor
 from torchvision.transforms.functional import normalize
 from .mask_generator import MaskGenerator
+sys.path.append(os.path.abspath('extras'))
+from facexlib.parsing import init_parsing_model
+from facexlib.utils.misc import img2tensor
+
+
 
 class BiSeNetMaskGenerator(MaskGenerator):
     def __init__(self) -> None:
