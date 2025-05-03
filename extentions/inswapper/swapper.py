@@ -64,7 +64,7 @@ def swap_face(face_swapper,
     return face_swapper.get(temp_frame, target_face, source_face, paste_back=True)
  
     
-def process(source_img: Union[Image.Image, List],
+def process_swap(source_img: Union[Image.Image, List],
             target_img: Image.Image,
             source_indexes: str,
             target_indexes: str,
