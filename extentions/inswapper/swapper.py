@@ -213,7 +213,7 @@ def parse_args():
     parser.add_argument("--codeformer_fidelity", type=float, default=0.5, help="The codeformer fidelity.")
     args = parser.parse_args()
     return args
-"""
+
 
 if __name__ == "__main__":
     
@@ -265,3 +265,4 @@ if __name__ == "__main__":
     # save result
     result_image.save(args.output_img)
     print(f'Result saved successfully: {args.output_img}')
+"""
