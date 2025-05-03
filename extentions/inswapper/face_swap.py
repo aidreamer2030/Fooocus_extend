@@ -13,7 +13,7 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
       source_image = Image.fromarray(inswapper_source_image)
       print(f"Inswapper: Source indicies: {inswapper_source_image_indicies}")
       print(f"Inswapper: Target indicies: {inswapper_target_image_indicies}")      
-      result_image = process([source_image], item, inswapper_source_image_indicies, inswapper_target_image_indicies, "../inswapper/checkpoints/inswapper_128.onnx")
+      result_image = process([source_image], item, inswapper_source_image_indicies, inswapper_target_image_indicies, f"{config.path_clip_vision}/inswapper_128.onnx")
 
   if True:
       from restoration import face_restoration,check_ckpts,set_realesrgan,torch,ARCH_REGISTRY,cv2
