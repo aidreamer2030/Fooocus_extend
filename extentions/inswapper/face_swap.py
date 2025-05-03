@@ -1,6 +1,7 @@
 import sys
 from PIL import Image
 import numpy as np
+from modules import config
 #sys.path.append('../inswapper')
 
 #from inswapper.swapper import process
@@ -12,7 +13,8 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
   for item in images:
       source_image = Image.fromarray(inswapper_source_image)
       print(f"Inswapper: Source indicies: {inswapper_source_image_indicies}")
-      print(f"Inswapper: Target indicies: {inswapper_target_image_indicies}")      
+      print(f"Inswapper: Target indicies: {inswapper_target_image_indicies}") 
+      print(f"{config.path_clip_vision}/inswapper_128.onnx")     
       result_image = process([source_image], item, inswapper_source_image_indicies, inswapper_target_image_indicies, f"{config.path_clip_vision}/inswapper_128.onnx")
 
   if True:
