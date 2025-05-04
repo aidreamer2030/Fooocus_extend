@@ -4,7 +4,6 @@ import os
 import sys
 import torch
 from torchvision.transforms.functional import normalize
-print('+++++++++++++++++++',os.path.abspath('extentions/CodeFormer'))
 sys.path.append(os.path.abspath('extentions/CodeFormer'))
 from facelib.detection import init_detection_model
 from facelib.parsing import init_parsing_model

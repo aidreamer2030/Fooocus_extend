@@ -7,7 +7,6 @@ import yaml  # for torch hub
 from torch import nn
 import sys
 import os
-print('+++++++++++++++++++',os.path.abspath('extentions/CodeFormer'))
 sys.path.append(os.path.abspath('extentions/CodeFormer'))
 from facelib.detection.yolov5face.models.common import (
     C3,

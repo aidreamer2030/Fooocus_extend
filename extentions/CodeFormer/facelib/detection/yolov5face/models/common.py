@@ -6,7 +6,6 @@ import sys
 import numpy as np
 import torch
 from torch import nn
-print('+++++++++++++++++++',os.path.abspath('extentions/CodeFormer'))
 sys.path.append(os.path.abspath('extentions/CodeFormer'))
 from facelib.detection.yolov5face.utils.datasets import letterbox
 from facelib.detection.yolov5face.utils.general import (

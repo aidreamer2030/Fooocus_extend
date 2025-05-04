@@ -5,7 +5,6 @@ from torch import nn
 from copy import deepcopy
 from .retinaface.retinaface import RetinaFace
 from .yolov5face.face_detector import YoloDetector
-print('+++++++++++++++++++',os.path.abspath('extentions/CodeFormer'))
 sys.path.append(os.path.abspath('extentions/CodeFormer'))
 from facelib.utils import load_file_from_url
 from facelib.utils import download_pretrained_models

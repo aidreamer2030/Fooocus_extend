@@ -7,7 +7,6 @@ import cv2
 import numpy as np
 import torch
 from torch import nn
-print('+++++++++++++++++++',os.path.abspath('extentions/CodeFormer'))
 sys.path.append(os.path.abspath('extentions/CodeFormer'))
 from facelib.detection.yolov5face.models.common import Conv
 from facelib.detection.yolov5face.models.yolo import Model
