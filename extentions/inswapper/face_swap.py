@@ -26,7 +26,7 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
       # https://huggingface.co/spaces/sczhou/CodeFormer
       upsampler = set_realesrgan()
       device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
-      print(f"{device}")
+#      print(f"{device}")
 
       codeformer_net = ARCH_REGISTRY.get("CodeFormer")(dim_embd=512,
                                                         codebook_size=1024,

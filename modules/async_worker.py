@@ -438,7 +438,7 @@ def worker():
             imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
 
         if async_task.inswapper_enabled:
-            downloading_inswapper()
+            modules.config.downloading_inswapper()
             imgs = perform_face_swap(imgs, async_task.inswapper_source_image, async_task.inswapper_source_image_indicies, async_task.inswapper_target_image_indicies)
 
         
