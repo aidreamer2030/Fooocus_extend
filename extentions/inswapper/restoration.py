@@ -1,13 +1,11 @@
 import sys
-sys.path.append('./CodeFormer/CodeFormer')
-
 import os
 import cv2
 import torch
 import torch.nn.functional as F
 from torchvision.transforms.functional import normalize
-print('+++++++++++++++++++',os.path.abspath('CodeFormer'))
-sys.path.append(os.path.abspath('CodeFormer'))
+print('+++++++++++++++++++',os.path.abspath('extentions/CodeFormer'))
+sys.path.append(os.path.abspath('extentions/CodeFormer'))
 from basicsr.utils import imwrite, img2tensor, tensor2img
 from basicsr.utils.download_util import load_file_from_url
 from facelib.utils.face_restoration_helper import FaceRestoreHelper

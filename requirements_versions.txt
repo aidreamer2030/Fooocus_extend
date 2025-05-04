@@ -27,4 +27,4 @@ piexif
 sentencepiece
 opencv-python
 chardet
-insightface
+insightface==0.7.3
