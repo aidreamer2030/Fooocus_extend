@@ -6,7 +6,8 @@ import cv2
 import torch
 import torch.nn.functional as F
 from torchvision.transforms.functional import normalize
-
+print('+++++++++++++++++++',os.path.abspath('CodeFormer'))
+sys.path.append(os.path.abspath('CodeFormer'))
 from basicsr.utils import imwrite, img2tensor, tensor2img
 from basicsr.utils.download_util import load_file_from_url
 from facelib.utils.face_restoration_helper import FaceRestoreHelper
@@ -18,13 +19,14 @@ from basicsr.utils.registry import ARCH_REGISTRY
 
 def check_ckpts():
     pretrain_model_url = {
-        'codeformer': 'https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/codeformer.pth',
-        'detection': 'https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/detection_Resnet50_Final.pth',
-        'parsing': 'https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/parsing_parsenet.pth',
-        'realesrgan': 'https://github.com/sczhou/CodeFormer/releases/download/v0.1.0/RealESRGAN_x2plus.pth'
+        'codeformer': 'https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/codeformer.pth',
+        'detection': 'https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/detection_Resnet50_Final.pth',
+        'parsing': 'https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/parsing_parsenet.pth',
+        'realesrgan': 'https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/RealESRGAN_x2plus.pth'
     }
     # download weights
-    if not os.path.exists('CodeFormer/CodeFormer/weights/CodeFormer/codeformer.pth'):
+    print('+++++++++++++++++++',os.path.abspath('CodeFormer/weights/CodeFormer/codeformer.pth'))
+    if not os.path.exists('CodeFormer/weights/CodeFormer/codeformer.pth'):
         load_file_from_url(url=pretrain_model_url['codeformer'], model_dir='CodeFormer/CodeFormer/weights/CodeFormer', progress=True, file_name=None)
     if not os.path.exists('CodeFormer/CodeFormer/weights/facelib/detection_Resnet50_Final.pth'):
         load_file_from_url(url=pretrain_model_url['detection'], model_dir='CodeFormer/CodeFormer/weights/facelib', progress=True, file_name=None)
