@@ -9,7 +9,7 @@ import cv2
 import copy
 ###import argparse
 import insightface
-import onnxruntime
+import onnxruntime-gpu
 import numpy as np
 from PIL import Image
 from typing import List, Union, Dict, Set, Tuple
@@ -23,6 +23,7 @@ def getFaceSwapModel(model_path: str):
 
 def getFaceAnalyser(model_path: str, providers,
                     det_size=(320, 320)):
+    print('qqqqqqqqqqqqqqqq',providers)
     face_analyser = insightface.app.FaceAnalysis(name="buffalo_l", root="./checkpoints", providers=providers)
     face_analyser.prepare(ctx_id=0, det_size=det_size)
     return face_analyser
@@ -69,8 +70,17 @@ def process(source_img: Union[Image.Image, List],
             source_indexes: str,
             target_indexes: str,
             model: str):
+    print('%%%%%%%%%%%%%%%%%%%%')
+    print('%%%%%%%%%%%%%%%%%%%%',source_img)
+    print('%%%%%%%%%%%%%%%%%%%%',target_img)
+    print('%%%%%%%%%%%%%%%%%%%%',source_indexes)
+    print('%%%%%%%%%%%%%%%%%%%%',target_indexes)
+    print('%%%%%%%%%%%%%%%%%%%%',model)
+    print('%%%%%%%%%%%%%%%%%%%%')
+
     # load machine default available providers
     providers = onnxruntime.get_available_providers()
+    print("Доступные провайдеры:", providers)
 
     # load face_analyser
     face_analyser = getFaceAnalyser(model, providers)
