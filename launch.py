@@ -153,10 +153,10 @@ config.default_base_model_name, config.checkpoint_downloads = download_models(
 config.update_files()
 init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenames, config.paths_loras)
 
-load_file_from_url(
-    url='https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/inswapper_128.onnx', 
-    model_dir=config.path_clip_vision, 
-    file_name='inswapper_128.onnx')
+#load_file_from_url(
+#    url='https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/inswapper_128.onnx', 
+#    model_dir=config.path_clip_vision, 
+#    file_name='inswapper_128.onnx')
 
 if not os.path.exists('batch_images'):
     os.mkdir('batch_images')
