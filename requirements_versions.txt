@@ -28,3 +28,4 @@ sentencepiece
 opencv-python
 chardet
 insightface==0.7.3
+lpips
