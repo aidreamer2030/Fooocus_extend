@@ -22,7 +22,6 @@ def check_ckpts():
         'realesrgan': 'https://huggingface.co/shaitanzx/FooocusExtend/resolve/main/RealESRGAN_x2plus.pth'
     }
     # download weights
-    print('+++++++++++++++++++',os.path.abspath('extentions/CodeFormer/weights/CodeFormer/codeformer.pth'))
     if not os.path.exists('extentions/CodeFormer/weights/CodeFormer/codeformer.pth'):
         load_file_from_url(url=pretrain_model_url['codeformer'], model_dir='extentions/CodeFormer/weights/CodeFormer', progress=True, file_name=None)
     if not os.path.exists('extentions/CodeFormer/weights/facelib/detection_Resnet50_Final.pth'):

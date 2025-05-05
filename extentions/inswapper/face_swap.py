@@ -34,7 +34,7 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
                                                         n_layers=9,
                                                         connect_list=["32", "64", "128", "256"],
                                                       ).to(device)
-      ckpt_path = "CodeFormer/CodeFormer/weights/CodeFormer/codeformer.pth"
+      ckpt_path = "extentions/CodeFormer/weights/CodeFormer/codeformer.pth"
       checkpoint = torch.load(ckpt_path)["params_ema"]
       codeformer_net.load_state_dict(checkpoint)
       codeformer_net.eval()
