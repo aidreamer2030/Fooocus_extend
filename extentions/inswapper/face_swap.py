@@ -37,8 +37,7 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
       ckpt_path = "extentions/CodeFormer/weights/CodeFormer/codeformer.pth"
       checkpoint = torch.load(ckpt_path)["params_ema"]
       codeformer_net.load_state_dict(checkpoint)
-      codeformer_net.eval()
-async_task.inswapper_background_enhance,async_task.inswapper_face_upsample,async_task.inswapper_upscale      
+      codeformer_net.eval()     
       result_image = cv2.cvtColor(np.array(result_image), cv2.COLOR_RGB2BGR)
       result_image = face_restoration(result_image, 
                                       inswapper_background_enhance, 
