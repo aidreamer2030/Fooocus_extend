@@ -56,7 +56,6 @@ from extentions import geeky_remb as GeekyRemBExtras
 from modules.extra_utils import get_files_from_folder
 import chardet
 from extentions.inswapper import face_swap
-from extentions.codeformer import codeformer
 obp_prompt=[]
 
 
@@ -843,8 +842,6 @@ with shared.gradio_root:
             describe_tab.select(lambda: 'desc', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             with gr.Row(elem_classes='extend_row'):
                 with gr.Accordion('Extention', open=False):
-                  with gr.TabItem(label='CodeFormer') as codeformer_tab:
-                    codeformer_enabled,codeformer_background,codeformer_face_upsample,codeformfer_fidelity=codeformer.codeformer_gui()
                   with gr.TabItem(label='inswapper') as inswapper_tab:
                     inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,inswapper_source_image = face_swap.inswapper_gui()
                   with gr.TabItem(label='Civitai_helper') as download_tab:
