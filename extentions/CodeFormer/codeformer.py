@@ -27,9 +27,10 @@ def imread(img_path):
 """
 def imread(img_array):
     # Если изображение уже в RGB, просто возвращаем его
-    if len(img_array.shape) == 3 and img_array.shape[2] == 3:
-        return img_array
-    # Конвертируем из BGR в RGB, если это OpenCV-изображение
+#    if len(img_array.shape) == 3 and img_array.shape[2] == 3:
+#        print('1111111111111111111111111111111111111')
+#        return img_array
+#    # Конвертируем из BGR в RGB, если это OpenCV-изображение
     img_rgb = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
     return img_rgb
 
