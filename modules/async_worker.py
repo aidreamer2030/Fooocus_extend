@@ -236,6 +236,10 @@ class AsyncTask:
         self.inswapper_face_upsample = args.pop()
         self.inswapper_upscale = args.pop()
         self.inswapper_fidelity = args.pop()
+        self.codeformer_enabled = args.pop()
+        self.codeformer_background = args.pop()
+        self.codeformer_face_upsample = args.pop()
+        self.codeformfer_fidelity = args.pop()
         
 
 async_tasks = []
@@ -280,6 +284,7 @@ def worker():
     from modules.upscaler import perform_upscale
     from modules.flags import Performance
     from modules.meta_parser import get_metadata_parser
+    from extentions.codeformer.codeformer import codeformer_process
     sys.path.append(os.path.abspath('extentions/inswapper'))
     from face_swap import perform_face_swap
 
@@ -439,6 +444,10 @@ def worker():
         del positive_cond, negative_cond  # Save memory
         if inpaint_worker.current_task is not None:
             imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
+
+        if async_task.codeformer_enabled:
+            imgs = codeformer_process(imgs,async_task.codeformer_background,
+                    async_task.codeformer_face_upsample,async_task.codeformfer_fidelity)
 
         if async_task.inswapper_enabled:
             modules.config.downloading_inswapper()
