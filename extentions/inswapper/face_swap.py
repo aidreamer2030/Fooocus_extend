@@ -1,12 +1,10 @@
 import sys
 import gradio as gr
+import modules.gradio_hijack as grh
 from PIL import Image
 import numpy as np
 from modules import config
-#sys.path.append('../inswapper')
-
-#from inswapper.swapper import process
-from swapper import process
+from extentions.inswapper.swapper import process
 def inswapper_gui():
   with gr.Row():
     with gr.Column():
@@ -21,9 +19,7 @@ def inswapper_gui():
       inswapper_source_image = grh.Image(label='Source Face Image', source='upload', type='numpy')
   with gr.Row():
     gr.HTML('* \"inswapper\" is powered by haofanwang. <a href="https://github.com/haofanwang/inswapper" target="_blank">\U0001F4D4 Document</a>')
-  return inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,
-          inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,
-          inswapper_source_image
+  return inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,inswapper_source_image
 
 
 def perform_face_swap(images, inswapper_source_image, inswapper_source_image_indicies, inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity):
