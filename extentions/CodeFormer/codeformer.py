@@ -71,7 +71,7 @@ def set_realesrgan():
     )
     return upsampler
 
-def codeformer_process(face_align,background_enhance,face_upsample,upscale,fidelity):
+def codeformer_process(image,face_align,background_enhance,face_upsample,upscale,fidelity):
   check_ckpts()
   upsampler = set_realesrgan()
   device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
