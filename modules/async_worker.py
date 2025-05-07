@@ -232,6 +232,10 @@ class AsyncTask:
         self.inswapper_source_image_indicies = args.pop()
         self.inswapper_target_image_indicies = args.pop()
         self.inswapper_source_image = args.pop()
+        self.inswapper_background_enhance = args.pop()
+        self.inswapper_face_upsample = args.pop()
+        self.inswapper_upscale = args.pop()
+        self.inswapper_fidelity = args.pop()
         
 
 async_tasks = []
@@ -277,7 +281,6 @@ def worker():
     from modules.flags import Performance
     from modules.meta_parser import get_metadata_parser
     sys.path.append(os.path.abspath('extentions/inswapper'))
-#    sys.path.append('extention/inswapper')
     from face_swap import perform_face_swap
 
     pid = os.getpid()
@@ -439,7 +442,8 @@ def worker():
 
         if async_task.inswapper_enabled:
             modules.config.downloading_inswapper()
-            imgs = perform_face_swap(imgs, async_task.inswapper_source_image, async_task.inswapper_source_image_indicies, async_task.inswapper_target_image_indicies)
+            imgs = perform_face_swap(imgs, async_task.inswapper_source_image, async_task.inswapper_source_image_indicies, async_task.inswapper_target_image_indicies,
+                    async_task.inswapper_background_enhance,async_task.inswapper_face_upsample,async_task.inswapper_upscale,async_task.inswapper_fidelity)
 
         
         current_progress = int(base_progress + (100 - preparation_steps) / float(all_steps) * steps)

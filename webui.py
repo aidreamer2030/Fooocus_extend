@@ -847,6 +847,10 @@ with shared.gradio_root:
                             inswapper_enabled = gr.Checkbox(label="Enabled", value=False)
                             inswapper_source_image_indicies = gr.Text(label="Source Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
                             inswapper_target_image_indicies = gr.Text(label = "Target Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
+                            inswapper_background_enhance=gr.Checkbox(label="Background Enchanced", value=False)
+                            inswapper_face_upsample=gr.Checkbox(label="Face Upsample", value=False)
+                            inswapper_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
+                            inswapper_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
                         with gr.Column():
                             inswapper_source_image = grh.Image(label='Source Face Image', source='upload', type='numpy')
                     with gr.Row():
@@ -1914,7 +1918,7 @@ with shared.gradio_root:
         ctrls += [ratio,image_action,image_mode,ip_stop_batch,ip_weight_batch,upscale_mode]
         ctrls += [batch_prompt,positive_batch,negative_batch]
         ctrls += [name_prefix]
-        ctrls += [inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image]
+        ctrls += [inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity]
         ctrls += [translate_enabled, srcTrans, toTrans]
         def ob_translate(workprompt,translate_enabled, srcTrans, toTrans):
             if translate_enabled:

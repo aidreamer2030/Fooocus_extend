@@ -7,7 +7,7 @@ from modules import config
 #from inswapper.swapper import process
 from swapper import process
 
-def perform_face_swap(images, inswapper_source_image, inswapper_source_image_indicies, inswapper_target_image_indicies):
+def perform_face_swap(images, inswapper_source_image, inswapper_source_image_indicies, inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity):
   swapped_images = []
 
   for item in images:
@@ -38,13 +38,13 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
       checkpoint = torch.load(ckpt_path)["params_ema"]
       codeformer_net.load_state_dict(checkpoint)
       codeformer_net.eval()
-      
+async_task.inswapper_background_enhance,async_task.inswapper_face_upsample,async_task.inswapper_upscale      
       result_image = cv2.cvtColor(np.array(result_image), cv2.COLOR_RGB2BGR)
       result_image = face_restoration(result_image, 
-                                      True, 
-                                      True, 
-                                      1, 
-                                      0.5,
+                                      inswapper_background_enhance, 
+                                      inswapper_face_upsample, 
+                                      inswapper_upscale, 
+                                      inswapper_fidelity,
                                       upsampler,
                                       codeformer_net,
                                       device)
