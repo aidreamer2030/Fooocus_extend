@@ -844,7 +844,20 @@ with shared.gradio_root:
             with gr.Row(elem_classes='extend_row'):
                 with gr.Accordion('Extention', open=False):
                   with gr.TabItem(label='CodeFormer') as codeformer_tab:
-                    codeformer.codeformer_gui()
+                    with gr.Row():
+                      with gr.Column():
+                        codeformer_enabled = gr.Checkbox(label="Enabled", value=False)
+                        codeformer_preface=gr.Checkbox(value=True, label="Pre_Face_Align")
+                        codeformer_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
+                        codeformer_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
+                        codeformer_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
+                        codeformer_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
+                      with gr.Column():
+                        codeformer_input=gr.Image(type="numpy", label="Input")
+                        codeformer_output=gr.Image(type="numpy", label="Output")
+                    with gr.Row():
+                      codeformer_start=gr.Button(value='start')                    
+                    codeformer_start.click(codeformer.codeformer_process,inputs=[codeformer_input,codeformer_preface,codeformer_background_enhance,codeformer_face_upsample,codeformer_upscale,codeformer_fidelity],outputs=codeformer_output)
                   with gr.TabItem(label='inswapper') as inswapper_tab:
                     inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,inswapper_source_image = face_swap.inswapper_gui()
                   with gr.TabItem(label='Civitai_helper') as download_tab:
