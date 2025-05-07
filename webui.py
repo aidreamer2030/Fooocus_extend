@@ -55,6 +55,7 @@ from extentions import geeky_remb as GeekyRemBExtras
 
 from modules.extra_utils import get_files_from_folder
 import chardet
+from extentions.inswapper import face_swap
 obp_prompt=[]
 
 
@@ -839,32 +840,24 @@ with shared.gradio_root:
             inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             describe_tab.select(lambda: 'desc', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
-            def switch_ext(name_tab):
-                text=name_tab.label
-                if "🔴" in text:
-                    text.replace("🔴", "🟢")
-                else:
-                    text.replace("🟢", "🔴")
-                return gr.update(label=text),gr.update(value=text)
-
             with gr.Row(elem_classes='extend_row'):
                 with gr.Accordion('Extention', open=False):
-                  with gr.TabItem(label='🔴 inswapper') as inswapper_tab:
-                    with gr.Row():
-                        with gr.Column():
-                            inswapper_tab_name=gr.Textbox(value='🔴 inswapper',visible=False)
-                            inswapper_enabled = gr.Checkbox(label="Enabled", value=False)
-                            inswapper_source_image_indicies = gr.Text(label="Source Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
-                            inswapper_target_image_indicies = gr.Text(label = "Target Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
-                            inswapper_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
-                            inswapper_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
-                            inswapper_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
-                            inswapper_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
-                        with gr.Column():
-                            inswapper_source_image = grh.Image(label='Source Face Image', source='upload', type='numpy')
-                    with gr.Row():
-                        gr.HTML('* \"inswapper\" is powered by haofanwang. <a href="https://github.com/haofanwang/inswapper" target="_blank">\U0001F4D4 Document</a>')
-                  inswapper_enabled.change(switch_ext,inputs=inswapper_tab_name,outputs=[inswapper_tab,inswapper_tab_name)
+                  with gr.TabItem(label='inswapper') as inswapper_tab:
+                    inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,inswapper_source_image = face_swap.gui()
+#                    with gr.Row():
+#                        with gr.Column():
+#                            inswapper_tab_name=gr.Textbox(value='🔴 inswapper',visible=False)
+#                            inswapper_enabled = gr.Checkbox(label="Enabled", value=False)
+#                            inswapper_source_image_indicies = gr.Text(label="Source Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
+#                            inswapper_target_image_indicies = gr.Text(label = "Target Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
+#                            inswapper_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
+#                            inswapper_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
+#                            inswapper_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
+#                            inswapper_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
+#                        with gr.Column():
+#                            inswapper_source_image = grh.Image(label='Source Face Image', source='upload', type='numpy')
+#                    with gr.Row():
+#                        gr.HTML('* \"inswapper\" is powered by haofanwang. <a href="https://github.com/haofanwang/inswapper" target="_blank">\U0001F4D4 Document</a>')
                   with gr.TabItem(label='Civitai_helper') as download_tab:
                         civitai_helper.civitai_help()
                   with gr.TabItem(label='Image Batch') as im_batch:

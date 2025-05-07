@@ -1,4 +1,5 @@
 import sys
+import gradio as gr
 from PIL import Image
 import numpy as np
 from modules import config
@@ -6,6 +7,24 @@ from modules import config
 
 #from inswapper.swapper import process
 from swapper import process
+def inswapper_gui():
+  with gr.Row():
+    with gr.Column():
+      inswapper_enabled = gr.Checkbox(label="Enabled", value=False)
+      inswapper_source_image_indicies = gr.Text(label="Source Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
+      inswapper_target_image_indicies = gr.Text(label = "Target Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
+      inswapper_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
+      inswapper_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
+      inswapper_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
+      inswapper_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
+    with gr.Column():
+      inswapper_source_image = grh.Image(label='Source Face Image', source='upload', type='numpy')
+  with gr.Row():
+    gr.HTML('* \"inswapper\" is powered by haofanwang. <a href="https://github.com/haofanwang/inswapper" target="_blank">\U0001F4D4 Document</a>')
+  return inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,
+          inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,
+          inswapper_source_image
+
 
 def perform_face_swap(images, inswapper_source_image, inswapper_source_image_indicies, inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity):
   swapped_images = []
