@@ -441,13 +441,15 @@ def worker():
         if inpaint_worker.current_task is not None:
             imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
 
+        current_progress = int(base_progress + (100 - preparation_steps) / float(all_steps) * steps)
         if async_task.inswapper_enabled:
+            progressbar(async_task, current_progress, 'inswapper in progress ...')
             modules.config.downloading_inswapper()
             imgs = perform_face_swap(imgs, async_task.inswapper_source_image, async_task.inswapper_source_image_indicies, async_task.inswapper_target_image_indicies,
                     async_task.inswapper_background_enhance,async_task.inswapper_face_upsample,async_task.inswapper_upscale,async_task.inswapper_fidelity)
 
         
-        current_progress = int(base_progress + (100 - preparation_steps) / float(all_steps) * steps)
+        
         if modules.config.default_black_out_nsfw or async_task.black_out_nsfw:
             progressbar(async_task, current_progress, 'Checking for NSFW content ...')
             imgs = default_censor(imgs)
