@@ -57,7 +57,6 @@ from modules.extra_utils import get_files_from_folder
 import chardet
 from extentions.inswapper import face_swap
 from extentions.CodeFormer import codeformer
-from gradio_imageslider import ImageSlider
 obp_prompt=[]
 
 
@@ -855,8 +854,7 @@ with shared.gradio_root:
                         codeformer_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
                       with gr.Column():
                         codeformer_input=gr.Image(type="numpy", label="Input")
-                        codeformer_output=ImageSlider(position=0.5,label='Colored image with slider-view')
-#                        codeformer_output=gr.Image(type="numpy", label="Output")
+                        codeformer_output=gr.Image(type="numpy", label="Output")
                     with gr.Row():
                       codeformer_start=gr.Button(value='start')                    
                     codeformer_start.click(codeformer.codeformer_process,inputs=[codeformer_input,codeformer_preface,codeformer_background_enhance,codeformer_face_upsample,codeformer_upscale,codeformer_fidelity],outputs=codeformer_output)

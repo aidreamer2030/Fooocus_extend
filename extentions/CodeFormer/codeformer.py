@@ -196,7 +196,7 @@ def codeformer_process(image,face_align,background_enhance,face_upsample,upscale
 #        imwrite(restored_img, str(save_path))
 
         restored_img = cv2.cvtColor(restored_img, cv2.COLOR_BGR2RGB)
-        return image,restored_img
+        return restored_img
   except Exception as error:
         print('Global exception', error)
         return None, None
