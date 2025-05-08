@@ -1,13 +1,6 @@
-"""
-This project is developed by Haofan Wang to support face swap in single frame. Multi-frame will be supported soon!
-
-It is highly built on the top of insightface, sd-webui-roop and CodeFormer.
-"""
-
 import os
 import cv2
 import copy
-###import argparse
 import insightface
 import onnxruntime
 import numpy as np
@@ -198,72 +191,3 @@ def process(source_img: Union[Image.Image, List],
     result_image = apply_face_mask(result, target_img, target_faces[target_index], entire_mask_image)            
     result_image = Image.fromarray(cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
     return result_image
-
-"""
-def parse_args():
-    parser = argparse.ArgumentParser(description="Face swap.")
-    parser.add_argument("--source_img", type=str, required=True, help="The path of source image, it can be multiple images, dir;dir2;dir3.")
-    parser.add_argument("--target_img", type=str, required=True, help="The path of target image.")
-    parser.add_argument("--output_img", type=str, required=False, default="result.png", help="The path and filename of output image.")
-    parser.add_argument("--source_indexes", type=str, required=False, default="-1", help="Comma separated list of the face indexes to use (left to right) in the source image, starting at 0 (-1 uses all faces in the source image")
-    parser.add_argument("--target_indexes", type=str, required=False, default="-1", help="Comma separated list of the face indexes to swap (left to right) in the target image, starting at 0 (-1 swaps all faces in the target image")
-    parser.add_argument("--face_restore", action="store_true", help="The flag for face restoration.")
-    parser.add_argument("--background_enhance", action="store_true", help="The flag for background enhancement.")
-    parser.add_argument("--face_upsample", action="store_true", help="The flag for face upsample.")
-    parser.add_argument("--upscale", type=int, default=1, help="The upscale value, up to 4.")
-    parser.add_argument("--codeformer_fidelity", type=float, default=0.5, help="The codeformer fidelity.")
-    args = parser.parse_args()
-    return args
-
-
-if __name__ == "__main__":
-    
-    args = parse_args()
-    
-    source_img_paths = args.source_img.split(';')
-    print("Source image paths:", source_img_paths)
-    target_img_path = args.target_img
-    
-    source_img = [Image.open(img_path) for img_path in source_img_paths]
-    target_img = Image.open(target_img_path)
-
-    # download from https://huggingface.co/deepinsight/inswapper/tree/main
-    model = "./checkpoints/inswapper_128.onnx"
-    result_image = process(source_img, target_img, args.source_indexes, args.target_indexes, model)
-    
-    if args.face_restore:
-        from restoration import *
-        
-        # make sure the ckpts downloaded successfully
-        check_ckpts()
-        
-        # https://huggingface.co/spaces/sczhou/CodeFormer
-        upsampler = set_realesrgan()
-        device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
-
-        codeformer_net = ARCH_REGISTRY.get("CodeFormer")(dim_embd=512,
-                                                         codebook_size=1024,
-                                                         n_head=8,
-                                                         n_layers=9,
-                                                         connect_list=["32", "64", "128", "256"],
-                                                        ).to(device)
-        ckpt_path = "CodeFormer/CodeFormer/weights/CodeFormer/codeformer.pth"
-        checkpoint = torch.load(ckpt_path)["params_ema"]
-        codeformer_net.load_state_dict(checkpoint)
-        codeformer_net.eval()
-        
-        result_image = cv2.cvtColor(np.array(result_image), cv2.COLOR_RGB2BGR)
-        result_image = face_restoration(result_image, 
-                                        args.background_enhance, 
-                                        args.face_upsample, 
-                                        args.upscale, 
-                                        args.codeformer_fidelity,
-                                        upsampler,
-                                        codeformer_net,
-                                        device)
-        result_image = Image.fromarray(result_image)
-    
-    # save result
-    result_image.save(args.output_img)
-    print(f'Result saved successfully: {args.output_img}')
-"""

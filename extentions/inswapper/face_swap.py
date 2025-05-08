@@ -27,42 +27,7 @@ def perform_face_swap(images, inswapper_source_image, inswapper_source_image_ind
       print(f"Inswapper: Target indicies: {inswapper_target_image_indicies}") 
   
       result_image = process([source_image], item, inswapper_source_image_indicies, inswapper_target_image_indicies, f"{config.path_clip_vision}/inswapper_128.onnx")
-  restored_img = np.array(result_image)  # конвертируем PIL Image обратно в numpy array
-  #restored_img = cv2.cvtColor(restored_img, cv2.COLOR_RGB2BGR)  # если нужно BGR
+  restored_img = np.array(result_image)
   swapped_images.append(restored_img)
-  """
-  if False:
-      from restoration import face_restoration,check_ckpts,set_realesrgan,torch,ARCH_REGISTRY,cv2
-      
-      # make sure the ckpts downloaded successfully
-      check_ckpts()
-      
-      # https://huggingface.co/spaces/sczhou/CodeFormer
-      upsampler = set_realesrgan()
-      device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
-#      print(f"{device}")
-
-      codeformer_net = ARCH_REGISTRY.get("CodeFormer")(dim_embd=512,
-                                                        codebook_size=1024,
-                                                        n_head=8,
-                                                        n_layers=9,
-                                                        connect_list=["32", "64", "128", "256"],
-                                                      ).to(device)
-      ckpt_path = "extentions/CodeFormer/weights/CodeFormer/codeformer.pth"
-      checkpoint = torch.load(ckpt_path)["params_ema"]
-      codeformer_net.load_state_dict(checkpoint)
-      codeformer_net.eval()     
-      result_image = cv2.cvtColor(np.array(result_image), cv2.COLOR_RGB2BGR)
-      result_image = face_restoration(result_image, 
-                                      inswapper_background_enhance, 
-                                      inswapper_face_upsample, 
-                                      inswapper_upscale, 
-                                      inswapper_fidelity,
-                                      upsampler,
-                                      codeformer_net,
-                                      device)
-
-      swapped_images.append(result_image)
-  """
   return swapped_images
 
