@@ -2,14 +2,15 @@
 
 import sys
 import os
-
+import numpy as np
 
 import cv2
 import torch
 import torch.nn.functional as F
 import gradio as gr
-
+from PIL import Image
 from torchvision.transforms.functional import normalize
+from typing import List, Union, Dict, Set, Tuple
 sys.path.append(os.path.abspath('extentions/CodeFormer'))
 from basicsr.utils import imwrite, img2tensor, tensor2img
 from basicsr.utils.download_util import load_file_from_url
@@ -20,9 +21,7 @@ from facelib.utils.misc import is_gray
 
 from basicsr.utils.registry import ARCH_REGISTRY
 
-def imread(img_array):
-    img_rgb = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
-    return img_rgb
+
 
 def check_ckpts():
     pretrain_model_url = {
@@ -61,8 +60,17 @@ def set_realesrgan():
         half=half,
     )
     return upsampler
+def get_image(input_data: Union[list, np.ndarray]) -> np.ndarray:
+
+    if isinstance(input_data, (list, tuple)) and len(input_data) > 0:
+        # Если передан список/кортеж, берём первый элемент
+        return input_data[0],True
+    elif isinstance(input_data, np.ndarray):
+        # Если передан напрямую numpy-массив
+        return input_data,False
 
 def codeformer_process(image,face_align,background_enhance,face_upsample,upscale,codeformer_fidelity):
+  codeform_array=[]
   check_ckpts()
   upsampler = set_realesrgan()
   device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -91,9 +99,8 @@ def codeformer_process(image,face_align,background_enhance,face_upsample,upscale
 
         has_aligned = not face_align
         upscale = 1 if has_aligned else upscale
-
-###        img = cv2.imread(str(image), cv2.IMREAD_COLOR)
-        img = imread(image)
+        img_array,generator=get_image(image)
+        img = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
         print('\timage size:', img.shape)
 
         upscale = int(upscale) # convert type to int
@@ -182,7 +189,12 @@ def codeformer_process(image,face_align,background_enhance,face_upsample,upscale
             restored_img = restored_face
 
         restored_img = cv2.cvtColor(restored_img, cv2.COLOR_BGR2RGB)
-        return restored_img
+        codeform_array.append(restored_img)
+        if generator:
+            return codeform_array
+        else:
+            return np.array(restored_img)
+
   except Exception as error:
         print('Global exception', error)
         return None, None
@@ -190,9 +202,12 @@ def codeformer_process(image,face_align,background_enhance,face_upsample,upscale
 def codeformer_gen_gui():
     with gr.Row():
           codeformer_gen_enabled = gr.Checkbox(label="Enabled", value=False)
+    with gr.Row():
+        with gr.Column():      
           codeformer_gen_preface=gr.Checkbox(value=True, label="Pre_Face_Align")
           codeformer_gen_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
           codeformer_gen_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
+        with gr.Column(): 
           codeformer_gen_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
           codeformer_gen_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
 

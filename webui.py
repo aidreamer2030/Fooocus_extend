@@ -844,14 +844,13 @@ with shared.gradio_root:
             with gr.Row(elem_classes='extend_row'):
                 with gr.Accordion('Extention', open=False):
                   with gr.TabItem(label='inswapper_gen') as inswapper_tab:
-                    inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,inswapper_source_image = face_swap.inswapper_gui()
+                    inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image = face_swap.inswapper_gui()
                   with gr.TabItem(label='codeformef_gen') as inswapper_tab:
                     codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity = codeformer.codeformer_gen_gui()
 
                   with gr.TabItem(label='CodeFormer') as codeformer_tab:
                     with gr.Row():
                       with gr.Column():
-                        codeformer_enabled = gr.Checkbox(label="Enabled", value=False)
                         codeformer_preface=gr.Checkbox(value=True, label="Pre_Face_Align")
                         codeformer_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
                         codeformer_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
@@ -862,7 +861,7 @@ with shared.gradio_root:
                         codeformer_output=gr.Image(type="numpy", label="Output")
                     with gr.Row():
                       codeformer_start=gr.Button(value='start')                    
-                    codeformer_start.click(codeformer.codeformer_process,inputs=[codeformer_input,codeformer_preface,codeformer_background_enhance,codeformer_face_upsample,codeformer_upscale,codeformer_fidelity],outputs=codeformer_output)
+                    codeformer_start.click(codeformer.codeformer_process,inputs=[codeformer_input,codeformer_preface,codeformer_background_enhance,codeformer_face_upsample,codeformer_upscale,codeformer_fidelity],outputs=[codeformer_output])
                   with gr.TabItem(label='Civitai_helper') as download_tab:
                         civitai_helper.civitai_help()
                   with gr.TabItem(label='Image Batch') as im_batch:
@@ -1925,7 +1924,7 @@ with shared.gradio_root:
         ctrls += [ratio,image_action,image_mode,ip_stop_batch,ip_weight_batch,upscale_mode]
         ctrls += [batch_prompt,positive_batch,negative_batch]
         ctrls += [name_prefix]
-        ctrls += [inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity]
+        ctrls += [inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image]
         ctrls += [codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity]
 
         ctrls += [translate_enabled, srcTrans, toTrans]
