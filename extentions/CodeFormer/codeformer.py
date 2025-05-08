@@ -19,18 +19,8 @@ from basicsr.utils.realesrgan_utils import RealESRGANer
 from facelib.utils.misc import is_gray
 
 from basicsr.utils.registry import ARCH_REGISTRY
-"""
-def imread(img_path):
-    img = cv2.imread(img_path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    return img
-"""
+
 def imread(img_array):
-    # Если изображение уже в RGB, просто возвращаем его
-#    if len(img_array.shape) == 3 and img_array.shape[2] == 3:
-#        print('1111111111111111111111111111111111111')
-#        return img_array
-#    # Конвертируем из BGR в RGB, если это OpenCV-изображение
     img_rgb = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
     return img_rgb
 
@@ -191,50 +181,19 @@ def codeformer_process(image,face_align,background_enhance,face_upsample,upscale
         else:
             restored_img = restored_face
 
-        # save restored img
-#        save_path = f'output/out.png'
-#        imwrite(restored_img, str(save_path))
-
         restored_img = cv2.cvtColor(restored_img, cv2.COLOR_BGR2RGB)
         return restored_img
   except Exception as error:
         print('Global exception', error)
         return None, None
-"""
 
-
-def imread(img_path):
-    img = cv2.imread(img_path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    return img
-
-# set enhancer with RealESRGAN
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-def codeformer_gui():
+def codeformer_gen_gui():
     with gr.Row():
-        with gr.Column():
-          codeformer_enabled = gr.Checkbox(label="Enabled", value=False)
-          codeformer_preface=gr.Checkbox(value=True, label="Pre_Face_Align")
-          codeformer_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
-          codeformer_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
-          codeformer_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
-          codeformer_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
-        with gr.Column():
-          codeformer_input=gr.Image(type="numpy", label="Input")
-          codeformer_output=gr.Image(type="numpy", label="Output")
-    with gr.Row():
-        codeformer_start=gr.Button(value='start')
-    return codeformer_preface,codeformer_background_enhance,codeformer_face_upsample,codeformer_upscale,codeformer_fidelity,codeformer_input,codeformer_start
-    
+          codeformer_gen_enabled = gr.Checkbox(label="Enabled", value=False)
+          codeformer_gen_preface=gr.Checkbox(value=True, label="Pre_Face_Align")
+          codeformer_gen_background_enhance=gr.Checkbox(label="Background Enchanced", value=True)
+          codeformer_gen_face_upsample=gr.Checkbox(label="Face Upsample", value=True)
+          codeformer_gen_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
+          codeformer_gen_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
+
+    return codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity
