@@ -236,6 +236,12 @@ class AsyncTask:
         self.inswapper_face_upsample = args.pop()
         self.inswapper_upscale = args.pop()
         self.inswapper_fidelity = args.pop()
+        self.codeformer_gen_enabled = args.pop()
+        self.codeformer_gen_preface = args.pop()
+        self.codeformer_gen_background_enhance = args.pop()
+        self.codeformer_gen_face_upsample = args.pop()
+        self.codeformer_gen_upscale = args.pop()
+        self.codeformer_gen_fidelity = args.pop()
 
         
 
@@ -283,6 +289,8 @@ def worker():
     from modules.meta_parser import get_metadata_parser
     sys.path.append(os.path.abspath('extentions/inswapper'))
     from face_swap import perform_face_swap
+    sys.path.append(os.path.abspath('extentions/CodeFormer'))
+    from codeformer import codeformer_process
 
     pid = os.getpid()
     print(f'Started worker with PID {pid}')
@@ -448,6 +456,11 @@ def worker():
             imgs = perform_face_swap(imgs, async_task.inswapper_source_image, async_task.inswapper_source_image_indicies, async_task.inswapper_target_image_indicies,
                     async_task.inswapper_background_enhance,async_task.inswapper_face_upsample,async_task.inswapper_upscale,async_task.inswapper_fidelity)
 
+        if async_task.codeformer_gen_enabled:
+            progressbar(async_task, current_progress, 'CodeFormer in progress ...')
+            imgs = codeformer_process(imgs, async_task.codeformer_gen_preface,async_task.codeformer_gen_background_enhance,
+                    async_task.codeformer_gen_face_upsample,async_task.codeformer_gen_upscale,
+                    async_task.codeformer_gen_fidelity)
         
         
         if modules.config.default_black_out_nsfw or async_task.black_out_nsfw:

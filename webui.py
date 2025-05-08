@@ -846,7 +846,7 @@ with shared.gradio_root:
                   with gr.TabItem(label='inswapper_gen') as inswapper_tab:
                     inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,inswapper_source_image = face_swap.inswapper_gui()
                   with gr.TabItem(label='codeformef_gen') as inswapper_tab:
-                    inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity,inswapper_source_image = face_swap.inswapper_gui()
+                    codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity = codeformer.codeformer_gen_gui()
 
                   with gr.TabItem(label='CodeFormer') as codeformer_tab:
                     with gr.Row():
@@ -1926,6 +1926,7 @@ with shared.gradio_root:
         ctrls += [batch_prompt,positive_batch,negative_batch]
         ctrls += [name_prefix]
         ctrls += [inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image,inswapper_background_enhance,inswapper_face_upsample,inswapper_upscale,inswapper_fidelity]
+        ctrls += [codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity]
 
         ctrls += [translate_enabled, srcTrans, toTrans]
         def ob_translate(workprompt,translate_enabled, srcTrans, toTrans):
