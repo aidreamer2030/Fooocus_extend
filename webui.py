@@ -843,12 +843,26 @@ with shared.gradio_root:
             describe_tab.select(lambda: 'desc', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             with gr.Row(elem_classes='extend_row'):
                 with gr.Accordion('Extention', open=False):
-                  with gr.TabItem(label='inswapper_gen') as inswapper_tab:
+                  with gr.TabItem(label='inswapper')
+                    with gr.Row():
+                        with gr.Column():
+                            inswap_source_image_indicies = gr.Text(label="Source Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
+                            inswap_target_image_indicies = gr.Text(label = "Target Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
+                        with gr.Column():
+                            inswap_original_image = grh.Image(label='Source Image', source='upload', type='numpy')
+                            inswap_source_image = grh.Image(label='Source Face Image', source='upload', type='numpy')
+                    with gr.Row():
+                        inswap_output=gr.Image(type="numpy", label="Output")
+                    with gr.Row():
+                        inswap_start=gr.Button(value='Start inswapper')
+                    with gr.Row():
+                        gr.HTML('* \"inswapper\" is powered by haofanwang. <a href="https://github.com/haofanwang/inswapper" target="_blank">\U0001F4D4 Document</a>')
+                    inswap_start.click(face_swap.perform_face_swap,inputs=[inswap_original_image, inswap_source_image, inswap_source_image_indicies, inswap_target_image_indicies],outputs=inswap_output)
+                  with gr.TabItem(label='inswapper_gen')
                     inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image = face_swap.inswapper_gui()
-                  with gr.TabItem(label='codeformef_gen') as inswapper_tab:
+                  with gr.TabItem(label='codeformef_gen')
                     codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity = codeformer.codeformer_gen_gui()
-
-                  with gr.TabItem(label='CodeFormer') as codeformer_tab:
+                  with gr.TabItem(label='CodeFormer')
                     with gr.Row():
                       with gr.Column():
                         codeformer_preface=gr.Checkbox(value=True, label="Pre_Face_Align")
@@ -858,10 +872,14 @@ with shared.gradio_root:
                         codeformer_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
                       with gr.Column():
                         codeformer_input=gr.Image(type="numpy", label="Input")
+                    with gr.Row():
                         codeformer_output=gr.Image(type="numpy", label="Output")
                     with gr.Row():
-                      codeformer_start=gr.Button(value='start')                    
-                    codeformer_start.click(codeformer.codeformer_process,inputs=[codeformer_input,codeformer_preface,codeformer_background_enhance,codeformer_face_upsample,codeformer_upscale,codeformer_fidelity],outputs=[codeformer_output])
+                      codeformer_start=gr.Button(value='Start CodeFormer')
+                    with gr.Row():
+                        gr.HTML('* \"CodeFormer\" is powered by sczhou. <a href="https://github.com/sczhou/CodeFormer" target="_blank">\U0001F4D4 Document</a>')
+                    
+                    codeformer_start.click(codeformer.codeformer_process,inputs=[codeformer_input,codeformer_preface,codeformer_background_enhance,codeformer_face_upsample,codeformer_upscale,codeformer_fidelity],outputs=codeformer_output)
                   with gr.TabItem(label='Civitai_helper') as download_tab:
                         civitai_helper.civitai_help()
                   with gr.TabItem(label='Image Batch') as im_batch:

@@ -63,10 +63,10 @@ def set_realesrgan():
 def get_image(input_data: Union[list, np.ndarray]) -> np.ndarray:
 
     if isinstance(input_data, (list, tuple)) and len(input_data) > 0:
-        # Если передан список/кортеж, берём первый элемент
+        
         return input_data[0],True
     elif isinstance(input_data, np.ndarray):
-        # Если передан напрямую numpy-массив
+        
         return input_data,False
 
 def codeformer_process(image,face_align,background_enhance,face_upsample,upscale,codeformer_fidelity):
@@ -210,5 +210,6 @@ def codeformer_gen_gui():
         with gr.Column(): 
           codeformer_gen_upscale = gr.Slider(label='Upscale', minimum=1.0, maximum=4.0, step=1.0, value=1,interactive=True)
           codeformer_gen_fidelity =gr.Slider(label='Codeformer_Fidelity', minimum=0, maximum=1, value=0.5, step=0.01, info='0 for better quality, 1 for better identity (default=0.5)')
-
+    with gr.Row():
+        gr.HTML('* \"CodeFormer\" is powered by sczhou. <a href="https://github.com/sczhou/CodeFormer" target="_blank">\U0001F4D4 Document</a>')
     return codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity
