@@ -843,7 +843,7 @@ with shared.gradio_root:
             describe_tab.select(lambda: 'desc', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             with gr.Row(elem_classes='extend_row'):
                 with gr.Accordion('Extention', open=False):
-                  with gr.TabItem(label='inswapper')
+                  with gr.TabItem(label='inswapper'):
                     with gr.Row():
                         with gr.Column():
                             inswap_source_image_indicies = gr.Text(label="Source Image Index", info="-1 will swap all faces, otherwise provide the 0-based index of the face (0, 1, etc)", value="0")
@@ -858,11 +858,11 @@ with shared.gradio_root:
                     with gr.Row():
                         gr.HTML('* \"inswapper\" is powered by haofanwang. <a href="https://github.com/haofanwang/inswapper" target="_blank">\U0001F4D4 Document</a>')
                     inswap_start.click(face_swap.perform_face_swap,inputs=[inswap_original_image, inswap_source_image, inswap_source_image_indicies, inswap_target_image_indicies],outputs=inswap_output)
-                  with gr.TabItem(label='inswapper_gen')
+                  with gr.TabItem(label='inswapper_gen'):
                     inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image = face_swap.inswapper_gui()
-                  with gr.TabItem(label='codeformef_gen')
+                  with gr.TabItem(label='codeformef_gen'):
                     codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity = codeformer.codeformer_gen_gui()
-                  with gr.TabItem(label='CodeFormer')
+                  with gr.TabItem(label='CodeFormer'):
                     with gr.Row():
                       with gr.Column():
                         codeformer_preface=gr.Checkbox(value=True, label="Pre_Face_Align")

@@ -448,7 +448,7 @@ def worker():
         current_progress = int(base_progress + (100 - preparation_steps) / float(all_steps) * steps)
         if async_task.inswapper_enabled:
             progressbar(async_task, current_progress, 'inswapper in progress ...')
-            modules.config.downloading_inswapper()
+#            modules.config.downloading_inswapper()
             imgs = perform_face_swap(imgs, async_task.inswapper_source_image, async_task.inswapper_source_image_indicies, async_task.inswapper_target_image_indicies)
 
         if async_task.codeformer_gen_enabled:

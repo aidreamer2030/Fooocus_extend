@@ -61,9 +61,7 @@ def set_realesrgan():
     )
     return upsampler
 def get_image(input_data: Union[list, np.ndarray]) -> np.ndarray:
-
-    if isinstance(input_data, (list, tuple)) and len(input_data) > 0:
-        
+    if isinstance(input_data, (list, tuple)) and len(input_data) > 0:        
         return input_data[0],True
     elif isinstance(input_data, np.ndarray):
         

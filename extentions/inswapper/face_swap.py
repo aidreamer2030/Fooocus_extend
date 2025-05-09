@@ -4,7 +4,8 @@ import modules.gradio_hijack as grh
 from PIL import Image
 import cv2
 import numpy as np
-from modules import config
+from typing import List, Union, Dict, Set, Tuple
+import modules.config
 from extentions.inswapper.swapper import process
 def inswapper_gui():
   with gr.Row():
@@ -20,20 +21,19 @@ def inswapper_gui():
 
 def get_image(input_data: Union[list, np.ndarray]) -> np.ndarray:
     if isinstance(input_data, (list, tuple)) and len(input_data) > 0:
-        # Если передан список/кортеж, берём первый элемент
         return input_data[0],True
     elif isinstance(input_data, np.ndarray):
-        # Если передан напрямую numpy-массив
         return input_data,False
 
 def perform_face_swap(images, inswapper_source_image, inswapper_source_image_indicies, inswapper_target_image_indicies):
+  modules.config.downloading_inswapper()
   swapped_images = []
-  for item in images:
-      source_image,generator = get_image(inswapper_source_image)
-      print(f"Inswapper: Source indicies: {inswapper_source_image_indicies}")
-      print(f"Inswapper: Target indicies: {inswapper_target_image_indicies}") 
+  item,generator=get_image(images)
+  source_image = Image.fromarray(inswapper_source_image)
+  print(f"Inswapper: Source indicies: {inswapper_source_image_indicies}")
+  print(f"Inswapper: Target indicies: {inswapper_target_image_indicies}") 
   
-      result_image = process([source_image], item, inswapper_source_image_indicies, inswapper_target_image_indicies, f"{config.path_clip_vision}/inswapper_128.onnx")
+  result_image = process([source_image], item, inswapper_source_image_indicies, inswapper_target_image_indicies, f"{modules.config.path_clip_vision}/inswapper_128.onnx")
   restored_img = np.array(result_image)
   swapped_images.append(restored_img)
   if generator:
