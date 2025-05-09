@@ -842,7 +842,47 @@ with shared.gradio_root:
             ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             describe_tab.select(lambda: 'desc', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             with gr.Row(elem_classes='extend_row'):
-                with gr.Accordion('Extention', open=False):
+              with gr.Accordion('Extention', open=False):
+                with gr.Accordion('in the process of generation', open=False,elem_classes="nested-accordion"):
+                        with gr.TabItem(label='Prompt Translate') as promp_tr_tab:
+                            langs_sup = GoogleTranslator().get_supported_languages(as_dict=True)
+                            langs_sup = list(langs_sup.values())
+
+                            def change_lang(src, dest):
+                                if src != 'auto' and src != dest:
+                                    return [src, dest]
+                                return ['en','auto']
+                        
+                            def show_viewtrans(checkbox):
+                                return {viewstrans: gr.update(visible=checkbox)} 
+                                       
+                            with gr.Row():
+                                translate_enabled = gr.Checkbox(label='Enable translate', value=False, elem_id='translate_enabled_el')
+                            with gr.Row():
+                                gtrans = gr.Button(value="Translate")        
+
+                                srcTrans = gr.Dropdown(['auto']+langs_sup, value='auto', label='From', interactive=True)
+                                toTrans = gr.Dropdown(langs_sup, value='en', label='To', interactive=True)
+                                change_src_to = gr.Button(value="🔃")
+                            
+                            with gr.Row():
+                                adv_trans = gr.Checkbox(label='See translated prompts after click Generate', value=False)          
+                            
+                            with gr.Box(visible=False) as viewstrans:
+                                gr.Markdown('Tranlsated prompt & negative prompt')
+                                with gr.Row():
+                                    p_tr = gr.Textbox(label='Prompt translate', show_label=False, value='', lines=2, placeholder='Translated text prompt')
+
+                                with gr.Row():            
+                                    p_n_tr = gr.Textbox(label='Negative Translate', show_label=False, value='', lines=2, placeholder='Translated negative text prompt')             
+                            gr.HTML('* \"Prompt Translate\" is powered by AlekPet. <a href="https://github.com/AlekPet/Fooocus_Extensions_AlekPet" target="_blank">\U0001F4D4 Document</a>')
+
+                        with gr.TabItem(label='inswapper_gen'):
+                            inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image = face_swap.inswapper_gui()
+                        with gr.TabItem(label='codeformef_gen'):
+                            codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity = codeformer.codeformer_gen_gui()
+
+                with gr.Accordion('standalone', open=False,elem_classes="nested-accordion"):
                   with gr.TabItem(label='inswapper'):
                     with gr.Row():
                         with gr.Column():
@@ -858,10 +898,6 @@ with shared.gradio_root:
                     with gr.Row():
                         gr.HTML('* \"inswapper\" is powered by haofanwang. <a href="https://github.com/haofanwang/inswapper" target="_blank">\U0001F4D4 Document</a>')
                     inswap_start.click(face_swap.perform_face_swap,inputs=[inswap_original_image, inswap_source_image, inswap_source_image_indicies, inswap_target_image_indicies],outputs=inswap_output)
-                  with gr.TabItem(label='inswapper_gen'):
-                    inswapper_enabled,inswapper_source_image_indicies,inswapper_target_image_indicies,inswapper_source_image = face_swap.inswapper_gui()
-                  with gr.TabItem(label='codeformef_gen'):
-                    codeformer_gen_enabled,codeformer_gen_preface,codeformer_gen_background_enhance,codeformer_gen_face_upsample,codeformer_gen_upscale,codeformer_gen_fidelity = codeformer.codeformer_gen_gui()
                   with gr.TabItem(label='CodeFormer'):
                     with gr.Row():
                       with gr.Column():
@@ -1232,38 +1268,6 @@ with shared.gradio_root:
                         prompt5toprompt.click(ob_prompt.prompttoworkflowprompt, inputs=prompt5, outputs=prompt)
 
 
-                  with gr.TabItem(label='Prompt Translate') as promp_tr_tab:       
-                    langs_sup = GoogleTranslator().get_supported_languages(as_dict=True)
-                    langs_sup = list(langs_sup.values())
-
-                    def change_lang(src, dest):
-                            if src != 'auto' and src != dest:
-                                return [src, dest]
-                            return ['en','auto']
-                        
-                    def show_viewtrans(checkbox):
-                        return {viewstrans: gr.update(visible=checkbox)} 
-                                       
-                    with gr.Row():
-                            translate_enabled = gr.Checkbox(label='Enable translate', value=False, elem_id='translate_enabled_el')
-                    with gr.Row():
-                            gtrans = gr.Button(value="Translate")        
-
-                            srcTrans = gr.Dropdown(['auto']+langs_sup, value='auto', label='From', interactive=True)
-                            toTrans = gr.Dropdown(langs_sup, value='en', label='To', interactive=True)
-                            change_src_to = gr.Button(value="🔃")
-                            
-                    with gr.Row():
-                            adv_trans = gr.Checkbox(label='See translated prompts after click Generate', value=False)          
-                            
-                    with gr.Box(visible=False) as viewstrans:
-                            gr.Markdown('Tranlsated prompt & negative prompt')
-                            with gr.Row():
-                                p_tr = gr.Textbox(label='Prompt translate', show_label=False, value='', lines=2, placeholder='Translated text prompt')
-
-                            with gr.Row():            
-                                p_n_tr = gr.Textbox(label='Negative Translate', show_label=False, value='', lines=2, placeholder='Translated negative text prompt')             
-                    gr.HTML('* \"Prompt Translate\" is powered by AlekPet. <a href="https://github.com/AlekPet/Fooocus_Extensions_AlekPet" target="_blank">\U0001F4D4 Document</a>')
                   with gr.TabItem(label='TextMask') as text_mask:
                     mask=gr.HTML()                  
                   with gr.TabItem(label='Remove Background') as rembg_tab:
