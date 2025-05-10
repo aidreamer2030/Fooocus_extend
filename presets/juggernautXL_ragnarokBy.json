@@ -1,0 +1,57 @@
+{
+    "default_model": "juggernautXL_ragnarokBy.safetensors",
+    "default_refiner": "None",
+    "default_refiner_switch": 0.5,
+    "default_loras": [
+        [
+            false,
+            "detailed_notrigger.safetensors",
+            1.0
+        ],
+        [
+            true,
+            "add-detail-xl.safetensors",
+            1.5
+        ],
+        [
+            false,
+            "xl_more_art-full_v1.safetensors",
+            0.8
+        ],
+        [
+            false,
+            "none",
+            1
+        ],
+        [
+            false,
+            "HDRv1.safetensors",
+            1.0
+        ]
+    ],
+    "default_cfg_scale": 4.0,
+    "default_sample_sharpness": 2.0,
+    "default_sampler": "dpmpp_2m_sde_gpu",
+    "default_scheduler": "karras",
+    "default_performance": "Speed",
+    "default_prompt": "",
+    "default_prompt_negative": "",
+    "default_styles": [ ],
+    "default_aspect_ratio": "1152*896",
+    "default_overwrite_step": -1,
+    "checkpoint_downloads": {
+        "juggernautXL_ragnarokBy.safetensors": "https://huggingface.co/AMERICAN666/MISc-FILES-checkpoint/resolve/main/juggernautXL_ragnarokBy.safetensors"
+    },
+    "embeddings_downloads": {},
+    "lora_downloads": {
+        "sd_xl_offset_example-lora_1.0.safetensors": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors",
+        "add-detail-xl.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/add-detail-xl.safetensors",
+        "xl_more_art-full_v1.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/xl_more_art-full_v1.safetensors",
+        "detailed_notrigger.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/detailed_notrigger.safetensors",
+        "HDRv1.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/HDRv1.safetensors"
+    },
+    "vae_downloads": {
+        "ponyDiffusionV6XL_vae.safetensors": "https://huggingface.co/mashb1t/fav_models/resolve/main/fav/ponyDiffusionV6XL_vae.safetensors"
+    }
+
+}
