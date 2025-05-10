@@ -152,6 +152,8 @@ config.default_base_model_name, config.checkpoint_downloads = download_models(
 
 config.update_files()
 init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenames, config.paths_loras)
-if not os.path.exists('batch_images'):
-    os.mkdir('batch_images')
+
+
+os.makedirs("batch_images", exist_ok=True)
+
 from webui import *
