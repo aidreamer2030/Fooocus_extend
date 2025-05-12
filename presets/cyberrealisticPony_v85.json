@@ -15,14 +15,14 @@
             1.5
         ],
         [
-            false,
-            "None",
+            true,
+            "detailed_notrigger.safetensors",
             1.0
         ],
         [
-            false,
-            "None",
-            1.0
+            true,
+            "xl_more_art-full_v1.safetensors",
+            0.5
         ],
         [
             false,
@@ -51,6 +51,8 @@
     "lora_downloads": {
         "zy_Realism_Enhancer_v2.safetensors": "https://huggingface.co/b3h-young123/misc-files/resolve/main/zy_Realism_Enhancer_v2.safetensors",        
         "add-detail-xl.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/add-detail-xl.safetensors",
+        "xl_more_art-full_v1.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/xl_more_art-full_v1.safetensors",
+        "detailed_notrigger.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/detailed_notrigger.safetensors"
 },
     "vae_downloads": {
         "sdxl_vae.safetensors": "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
