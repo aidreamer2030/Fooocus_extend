@@ -34,7 +34,7 @@
     "default_sampler": "dpmpp_2m_sde_gpu",
     "default_scheduler": "karras",
     "default_performance": "Speed",
-    "default_prompt": "",
+    "default_prompt": " , flux-style, aidmaImageUpgrader, aidmamj6.1",
     "default_prompt_negative": "",
     "default_styles": [ ],
     "default_aspect_ratio": "1152*896",
@@ -48,7 +48,10 @@
         "add-detail-xl.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/add-detail-xl.safetensors",
         "xl_more_art-full_v1.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/xl_more_art-full_v1.safetensors",
         "detailed_notrigger.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/detailed_notrigger.safetensors",
-        "HDRv1.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/HDRv1.safetensors"
+        "HDRv1.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/HDRv1.safetensors",
+        "aidmaFluxStyleXL-v0.2.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/Flux-SDXL1/aidmaFluxStyleXL-v0.2.safetensors",
+        "aidmaImageUpgraderSDXL-v0.3.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/Flux-SDXL1/aidmaImageUpgraderSDXL-v0.3.safetensors",
+        "aidmaMJ6.1SDXL-v0.5.safetensors": "https://huggingface.co/AMERICAN666/misc-files-LORA/resolve/main/Flux-SDXL1/aidmaMJ6.1SDXL-v0.5.safetensors"
     },
     "vae_downloads": {
         "sdxl_vae.safetensors": "https://huggingface.co/stabilityai/sdxl-vae/resolve/main/sdxl_vae.safetensors"
